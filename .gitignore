@@ -34,5 +34,5 @@ yarn-error.log*
 .vercel
 
 # gh pages
-.gh-pages
-.gh-pages.pub
+gh-pages
+gh-pages.pub
