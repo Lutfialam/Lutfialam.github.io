@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  assetPrefix: "https://lutfialam.github.io/",
+  assetPrefix: ".",
+  // assetPrefix: "https://lutfialam.github.io/",
   reactStrictMode: true,
   // basePath: '/docs',
   eslint: {
