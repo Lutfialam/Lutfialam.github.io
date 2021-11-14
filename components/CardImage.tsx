@@ -1,3 +1,5 @@
+// import Image from 'next/image';
+
 interface CardImageProps {
   projectDescription: string;
   projectName: string;
@@ -18,6 +20,13 @@ const CardImage: React.FC<CardImageProps> = ({
         cardWidth ?? 'w-2/5'
       } p-1 m-2`}
     >
+      {/* <div className='object-cover rounded-t-lg w-full overflow-hidden h-full md:h-56'>
+        <Image
+          src={imagePath}
+          alt={projectDescription}
+          className='object-left-top min-h-full'
+        />
+      </div> */}
       <img
         src={imagePath}
         alt={projectDescription}

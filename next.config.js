@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  assetPrefix: ".",
+  assetPrefix: '.',
   // assetPrefix: "https://lutfialam.github.io/",
   reactStrictMode: true,
   // basePath: '/docs',
@@ -9,4 +9,4 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-}
+};
