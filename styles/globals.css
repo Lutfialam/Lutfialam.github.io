@@ -24,8 +24,16 @@ body::-webkit-scrollbar {
   width: 5px;
 }
 
+.document__root::-webkit-scrollbar {
+  width: 5px;
+}
+
 @media (prefers-color-scheme: dark) {
   body::-webkit-scrollbar-track {
+    background-color: #111827;
+  }
+
+  .document__root::-webkit-scrollbar-track {
     background-color: #111827;
   }
 }
@@ -34,9 +42,18 @@ body::-webkit-scrollbar {
   body::-webkit-scrollbar-track {
     background-color: transparent;
   }
+
+  .document__root::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
 
 body::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #6366f1;
+}
+
+.document__root::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: #6366f1;
 }

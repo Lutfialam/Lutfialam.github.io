@@ -28,6 +28,7 @@ const Modal: React.FC<ModalProps> = ({
     modal_body?.scrollTo({ top: 0 });
     modal.children[0].classList.remove('opacity-0');
     modal.children[0].classList.add('opacity-100');
+    document.body.classList.add('fixed');
   };
 
   const modalClose = (key: string) => {
@@ -38,6 +39,7 @@ const Modal: React.FC<ModalProps> = ({
 
     setTimeout(function () {
       document.body.classList.remove('overflow-hidden');
+      document.body.classList.remove('fixed');
       modal.close();
     }, 100);
   };

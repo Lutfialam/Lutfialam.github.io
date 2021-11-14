@@ -7,6 +7,7 @@ import CardImage from '../components/CardImage';
 
 import { Document, Page, pdfjs } from 'react-pdf';
 import { SRLWrapper } from 'simple-react-lightbox';
+import ButtonControl from '../components/ButtonControl';
 const feather = require('feather-icons');
 
 // import ui_design from '../public/images/ui.png';
@@ -25,55 +26,11 @@ const Home: NextPage = () => {
   const [ActiveCV, SetActiveCV] = useState(1);
   const [ModalCV, SetModalCV] = useState(false);
   const [Loading, SetLoading] = useState(true);
-  const [LoadingCV, SetLoadingCV] = useState(false);
   const [SidebarOpen, SetSidebarOpen] = useState(false);
-
-  const ButtonControl: React.FC<{
-    text: string;
-    action: string;
-    disable?: boolean;
-  }> = ({ text, action, disable }) => {
-    return (
-      <button
-        className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded 
-          ${
-            disable
-              ? 'opacity-40'
-              : 'hover:bg-gray-500 hover:border-transparent hover:text-white'
-          }
-        `}
-        type='button'
-        disabled={disable ?? false}
-        onClick={() => {
-          switch (action) {
-            case 'plus_scale':
-              window.innerWidth > 768
-                ? SetScale(Scale + 0.1)
-                : SetScale(Scale + 0.01);
-              break;
-            case 'minus_scale':
-              window.innerWidth > 768
-                ? SetScale(Scale - 0.1)
-                : SetScale(Scale - 0.01);
-              break;
-            case 'prev_page':
-              SetCVPage(CVPage - 1);
-              break;
-            case 'next_page':
-              SetCVPage(CVPage + 1);
-              break;
-          }
-        }}
-      >
-        {text}
-      </button>
-    );
-  };
 
   const onDocumentLoadSuccess = (document: { numPages: any }) => {
     const { numPages } = document;
     SetMaxPage(numPages);
-    SetLoadingCV(false);
   };
 
   const download = () => {
@@ -236,11 +193,19 @@ const Home: NextPage = () => {
             footer_left={
               <>
                 <ButtonControl
+                  CVPage={CVPage}
+                  SetCVPage={SetCVPage}
+                  Scale={Scale}
+                  SetScale={SetScale}
                   text='Prev'
                   action='prev_page'
                   disable={CVPage == 1 ? true : false}
                 />
                 <ButtonControl
+                  CVPage={CVPage}
+                  SetCVPage={SetCVPage}
+                  Scale={Scale}
+                  SetScale={SetScale}
                   text='Next'
                   action='next_page'
                   disable={MaxPage == CVPage ? true : false}
@@ -249,8 +214,22 @@ const Home: NextPage = () => {
             }
             footer={
               <>
-                <ButtonControl text='-' action='minus_scale' />
-                <ButtonControl text='+' action='plus_scale' />
+                <ButtonControl
+                  CVPage={CVPage}
+                  SetCVPage={SetCVPage}
+                  Scale={Scale}
+                  SetScale={SetScale}
+                  text='-'
+                  action='minus_scale'
+                />
+                <ButtonControl
+                  CVPage={CVPage}
+                  SetCVPage={SetCVPage}
+                  Scale={Scale}
+                  SetScale={SetScale}
+                  text='+'
+                  action='plus_scale'
+                />
               </>
             }
           >
