@@ -8,16 +8,8 @@ import CardImage from '../components/CardImage';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { SRLWrapper } from 'simple-react-lightbox';
 import ButtonControl from '../components/ButtonControl';
-const feather = require('feather-icons');
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-// import ui_design from '../public/images/ui.png';
-// import harsa from '../public/images/harsa.png';
-// import indagi from '../public/images/indagi.png';
-// import search_text from '../public/images/search_text.png';
-// import enjoy_travel from '../public/images/enjoy_travel.png';
-// import pengaduan_masyarakat from '../public/images/pengaduan_masyarakat.jpg';
-// import smartopname from '../public/images/smartopname.png';
 
 const Home: NextPage = () => {
   const [Scale, SetScale] = useState(0.6);
@@ -60,7 +52,6 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    feather.replace();
     if (window.innerWidth > 768) {
       ActiveCV == 1 ? SetScale(0.5) : SetScale(1.5);
     } else {
@@ -90,7 +81,7 @@ const Home: NextPage = () => {
               icon='github'
               headerText='My github repo'
               paragraph={
-                <p className='text-gray-700'>
+                <p className='text-gray-700 dark:text-gray-500'>
                   If you want look my repository on github. You can meet me with
                   username <span className='text-indigo-500'>Lutfialam</span>
                 </p>
@@ -101,7 +92,7 @@ const Home: NextPage = () => {
               icon='send'
               headerText='My Telegram'
               paragraph={
-                <p>
+                <p className='text-gray-700 dark:text-gray-500'>
                   If you want contact me. You can meet me on telegram with
                   username{' '}
                   <span className='text-indigo-500'>@Lutfialamsyah</span>
@@ -113,7 +104,7 @@ const Home: NextPage = () => {
               icon='linkedin'
               headerText='My Linkedin'
               paragraph={
-                <p>
+                <p className='text-gray-700 dark:text-gray-500'>
                   If you want contact me. You can meet me on linkedin with
                   username{' '}
                   <span className='text-indigo-500'>Lutfialamsyah</span>
@@ -126,7 +117,7 @@ const Home: NextPage = () => {
               icon='mail'
               headerText='My Email'
               paragraph={
-                <p>
+                <p className='text-gray-700 dark:text-gray-500'>
                   If you want contact me. You can meet me on email with username{' '}
                   <span className='text-indigo-500'>
                     lutfialamsyah1003@gmail.com
@@ -155,7 +146,7 @@ const Home: NextPage = () => {
                   </svg>
                 </a>
 
-                <div className='ml-36 mt-6 dropdown-content w-2/6 md:w-1/6 rounded-lg mr-12'>
+                <div className='ml-36 mt-6 dropdown-content bg-white w-2/6 md:w-1/6 rounded-lg mr-12'>
                   <div
                     onClick={async () => {
                       await CVChanger(1);
@@ -242,6 +233,7 @@ const Home: NextPage = () => {
               <Page pageNumber={CVPage} scale={Scale} className='mt-0' />
             </Document>
           </Modal>
+
           <div
             className='z-40 fixed right-0 bottom-0 rounded-full md:hidden bg-indigo-500 m-4 p-4'
             onClick={() => {
@@ -333,9 +325,9 @@ const Home: NextPage = () => {
                     </p>
                     <div className='flex'>
                       <button
-                        className='bg-indigo-500 text-xs md:text-base py-2 px-4 md:py-3 md:px-9 text-white my-5 focus:outline-none rounded-full focus:border-indigo-500 focus:bg-transparent focus:text-indigo-600 border-2 focus:border-blue mr-2 md:mr-5'
+                        className='bg-indigo-500 text-xs md:text-base py-2 px-4 md:py-3 md:px-9 text-white my-5 focus:outline-none focus:ring rounded-full focus:bg-transparent focus:text-indigo-600 mr-2 md:mr-5'
                         onClick={() => {
-                          download();
+                          // download();
                         }}
                       >
                         Download CV
@@ -382,7 +374,7 @@ const Home: NextPage = () => {
                     bootstrap for the frontend. This website was created only
                     for the purposes of my monthly college project
                   </p>
-                  <button className='bg-indigo-500 py-3 px-9 text-white my-5 focus:outline-none rounded-full focus:border-indigo-500 focus:bg-transparent focus:text-indigo-600 border-2 focus:border-blue mr-5 hidden md:flex'>
+                  <button className='bg-indigo-500 py-3 px-9 text-white my-5 focus:outline-none rounded-full  focus:bg-transparent focus:text-indigo-600 focus:ring mr-5 hidden md:flex'>
                     View repository
                   </button>
                 </div>
