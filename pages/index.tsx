@@ -10,6 +10,7 @@ import { SRLWrapper } from 'simple-react-lightbox';
 import ButtonControl from '../components/ButtonControl';
 const feather = require('feather-icons');
 
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 // import ui_design from '../public/images/ui.png';
 // import harsa from '../public/images/harsa.png';
 // import indagi from '../public/images/indagi.png';
@@ -59,8 +60,6 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    // pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
-    pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
     feather.replace();
     if (window.innerWidth > 768) {
       ActiveCV == 1 ? SetScale(0.5) : SetScale(1.5);
@@ -91,7 +90,7 @@ const Home: NextPage = () => {
               icon='github'
               headerText='My github repo'
               paragraph={
-                <p>
+                <p className='text-gray-700'>
                   If you want look my repository on github. You can meet me with
                   username <span className='text-indigo-500'>Lutfialam</span>
                 </p>
@@ -320,11 +319,11 @@ const Home: NextPage = () => {
               <div className='justify-center h-full flex flex-col w-full'>
                 <div className='flex justify-center w-full'>
                   <div className='flex-col justify-center w-full md:w-2/4 self-center'>
-                    <h1 className='text-3xl md:text-6xl font-bold text-gray-600 dark:text-white'>
+                    <h1 className='text-3xl md:text-6xl font-bold text-gray-600 dark:text-gray-500'>
                       <span className='text-indigo-500'>Hello</span>, Im Lutfi
                       Alamsyah
                     </h1>
-                    <p className='text-gray-600 mt-4 py-4'>
+                    <p className='text-gray-500 mt-4 py-4'>
                       I am a{' '}
                       <span className='text-indigo-500'>Software engineer</span>{' '}
                       have experienced in build and developing website and
@@ -371,7 +370,7 @@ const Home: NextPage = () => {
                 id='portfolio'
               >
                 <div className='w-full md:w-1/2 flex justify-center md:justify-start flex-wrap content-center'>
-                  <h1 className='text-2xl md:text-5xl font-bold text-gray-600 my-3'>
+                  <h1 className='text-2xl md:text-5xl font-bold text-gray-500 my-3'>
                     Latest <span className='text-indigo-600'>project</span>
                   </h1>
                   <p className='text-gray-500 self-center text-center md:text-left'>
@@ -399,7 +398,7 @@ const Home: NextPage = () => {
 
               <div className='flex flex-col justify-center my-24'>
                 <div className='flex justify-center w-full my-3'>
-                  <h1 className='text-2xl md:text-5xl font-bold text-gray-600'>
+                  <h1 className='text-2xl md:text-5xl font-bold text-gray-500'>
                     Web based project
                   </h1>
                 </div>
@@ -433,7 +432,7 @@ const Home: NextPage = () => {
 
               <div className='flex flex-col justify-center my-24'>
                 <div className='flex justify-center w-full my-3'>
-                  <h1 className='text-2xl md:text-5xl font-bold text-gray-600'>
+                  <h1 className='text-2xl md:text-5xl font-bold text-gray-500'>
                     Mobile based project
                   </h1>
                 </div>
