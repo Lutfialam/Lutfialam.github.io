@@ -30,7 +30,7 @@ const Home: NextPage = () => {
     let link = document.createElement('a');
 
     link.href = CVPath;
-    link.setAttribute('download', `Lutfi_Alamsyah-CV-2021.pdf`);
+    link.setAttribute('download', CVPath);
 
     document.body.appendChild(link);
     link.click();
@@ -327,7 +327,7 @@ const Home: NextPage = () => {
                       <button
                         className='bg-indigo-500 text-xs md:text-base py-2 px-4 md:py-3 md:px-9 text-white my-5 focus:outline-none focus:ring rounded-full focus:bg-transparent focus:text-indigo-600 mr-2 md:mr-5'
                         onClick={() => {
-                          // download();
+                          download();
                         }}
                       >
                         Download CV
@@ -374,7 +374,12 @@ const Home: NextPage = () => {
                     bootstrap for the frontend. This website was created only
                     for the purposes of my monthly college project
                   </p>
-                  <button className='bg-indigo-500 py-3 px-9 text-white my-5 focus:outline-none rounded-full  focus:bg-transparent focus:text-indigo-600 focus:ring mr-5 hidden md:flex'>
+                  <button
+                    className='bg-indigo-500 py-3 px-9 text-white my-5 focus:outline-none rounded-full  focus:bg-transparent focus:text-indigo-600 focus:ring mr-5 hidden md:flex'
+                    onClick={() => {
+                      window.open('https://github.com/lutfialam');
+                    }}
+                  >
                     View repository
                   </button>
                 </div>
