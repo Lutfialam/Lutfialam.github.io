@@ -412,7 +412,7 @@ const Home: NextPage = () => {
                     projectDescription='Web enjoy travel contain information about destination in indonesia. Build with java servlet and tailwindcss'
                     projectName='Enjoy travel'
                     projectUrl=''
-                    imagePath='images/ui.png'
+                    imagePath='images/enjoy_travel-min.png'
                   />
                   <CardImage
                     projectDescription='Yayasan indonesia berbagi(fiktif) app is web application for collection of donation. Build with laravel'

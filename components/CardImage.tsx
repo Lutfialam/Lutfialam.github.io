@@ -5,7 +5,7 @@ const feather = require('feather-icons');
 interface CardImageProps {
   projectDescription: string;
   projectName: string;
-  projectUrl: string;
+  projectUrl?: string;
   imagePath: string;
   cardWidth?: string;
 }
