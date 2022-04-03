@@ -9,6 +9,14 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { SRLWrapper } from 'simple-react-lightbox';
 import ButtonControl from '../components/ButtonControl';
 
+// import ui from 'images/ui.png';
+// import smartopname from 'images/smartopname.png';
+// import enjoy_travel from 'images/enjoy_travel-min.png';
+// import harsa from 'images/harsa.png';
+// import indagi from 'images/indagi.png';
+// import search_text from 'images/search_text.png';
+// import pengaduan_masyarakat from 'images/pengaduan_masyarakat.png';
+
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
