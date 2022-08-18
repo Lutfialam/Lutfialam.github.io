@@ -22,7 +22,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pd
 const Home: NextPage = () => {
   const [Scale, SetScale] = useState(0.6);
   const [CVPage, SetCVPage] = useState(1);
-  const [CVPath, SetCVPath] = useState('Lutfi_Alamsyah-CV-web.pdf');
+  const [CVPath, SetCVPath] = useState('CV-Lutfi_alamsyah.pdf');
   const [MaxPage, SetMaxPage] = useState(1);
   const [ActiveCV, SetActiveCV] = useState(1);
   const [ModalCV, SetModalCV] = useState(false);
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   const download = () => {
     let link = document.createElement('a');
 
-    let documentCV = ActiveCV == 1 ? 'Lutfi_Alamsyah-CV.pdf' : CVPath;
+    let documentCV = ActiveCV == 1 ? 'CV-Lutfi_alamsyah.pdf' : CVPath;
     link.href = documentCV;
     link.setAttribute('download', documentCV);
 
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
       id == 1 ? SetScale(0.15) : SetScale(0.6);
     }
     id == 1
-      ? SetCVPath('Lutfi_Alamsyah-CV-web.pdf')
+      ? SetCVPath('CV-Lutfi_alamsyah.pdf')
       : SetCVPath('Resume-Lutfi-Alamsyah.pdf');
   };
 
