@@ -328,9 +328,9 @@ const Home: NextPage = () => {
                       I am a{' '}
                       <span className='text-indigo-500'>Software engineer</span>{' '}
                       have experienced in build and developing website and
-                      android application(react native). For more than two years
-                      I have created several website projects, some of which are
-                      for other people's needs or for my experiments.
+                      android application. For more than two years I have
+                      created several website projects, some of which are for
+                      other people's needs or for my experiments.
                     </p>
                     <div className='flex'>
                       <button
@@ -376,17 +376,15 @@ const Home: NextPage = () => {
                   </h1>
                   <p className='text-gray-500 self-center text-center md:text-left'>
                     My latest project is{' '}
-                    <span className='text-indigo-500'>lumah shop</span>. is a
-                    shoe store website in which there are sales of various
-                    shoes, ranging from sports, daily, school and others. This
-                    website is made using Java web with hibernate and JSF with
-                    bootstrap for the frontend. This website was created only
-                    for the purposes of my monthly college project
+                    <span className='text-indigo-500'>Quiz app</span>. is a
+                    Educational web to create a game in the form of an
+                    interactice quiz that can be used in online learning and can
+                    be used as learning evaluation material.
                   </p>
                   <button
                     className='bg-indigo-500 py-3 px-9 text-white my-5 focus:outline-none rounded-full  focus:bg-transparent focus:text-indigo-600 focus:ring mr-5 hidden md:flex'
                     onClick={() => {
-                      window.open('https://github.com/lutfialam');
+                      window.open('https://github.com/Lutfialam/quiz-nextjs');
                     }}
                   >
                     View repository
@@ -395,9 +393,9 @@ const Home: NextPage = () => {
 
                 <div className='flex md:w-1/2 w-full mt-8 md:mt-0 content-center justify-center'>
                   <img
-                    src='images/new_project.png'
+                    src='images/quiz.png'
                     className='w-full'
-                    alt='lumah shop is a shoe store, build with java with hibernate and jsf'
+                    alt='Quiz app is build with nextjs'
                   />
                 </div>
               </div>
@@ -409,6 +407,17 @@ const Home: NextPage = () => {
                   </h1>
                 </div>
                 <div className='flex w-full justify-center flex-wrap'>
+                  <CardImage
+                    projectDescription='Lumah shop is a
+                    shoe store website in which there are sales of various
+                    shoes, ranging from sports, daily, school and others. This
+                    website is made using Java web with hibernate and JSF with
+                    bootstrap for the frontend. This website was created only
+                    for the purposes of my monthly college project'
+                    projectName='Lumah shop'
+                    projectUrl=''
+                    imagePath='images/new_project.png'
+                  />
                   <CardImage
                     projectDescription='Web enjoy travel contain information about destination in indonesia. Build with java servlet and tailwindcss'
                     projectName='Enjoy travel'
