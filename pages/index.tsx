@@ -13,7 +13,7 @@ import ButtonControl from '../components/ButtonControl';
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
-  const [path, setPath] = useState('CV-Lutfi-alamsyah.pdf');
+  const [path, setPath] = useState('CV-Lutfi-Alamsyah.pdf');
 
   const [page, setPage] = useState(1);
   const [scale, setScale] = useState(0.6);
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   const onDownloadClick = () => {
     let link = document.createElement('a');
 
-    let documentCV = activeCV == 1 ? 'CV-Lutfi-alamsyah.pdf' : path;
+    let documentCV = activeCV == 1 ? 'CV-Lutfi-Alamsyah.pdf' : path;
     link.href = documentCV;
     link.setAttribute('download', documentCV);
 
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
     } else {
       setScale(id === 1 ? 0.15 : 0.6);
     }
-    setPath(id === 1 ? 'CV-Lutfi-alamsyah.pdf' : 'Resume-Lutfi-Alamsyah.pdf');
+    setPath(id === 1 ? 'CV-Lutfi-Alamsyah.pdf' : 'Resume-Lutfi-Alamsyah.pdf');
   };
 
   useEffect(() => {
