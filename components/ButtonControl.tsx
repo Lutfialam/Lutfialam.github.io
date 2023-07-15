@@ -1,4 +1,10 @@
-const ButtonControl: React.FC<{
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+
+interface ButtonControlProps
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   text: string;
   action: string;
   disable?: boolean;
@@ -6,7 +12,12 @@ const ButtonControl: React.FC<{
   SetCVPage: (cv: number) => void;
   Scale: number;
   CVPage: number;
-}> = ({ text, action, disable, SetScale, SetCVPage, Scale, CVPage }) => {
+}
+
+const ButtonControl: React.FC<ButtonControlProps> = (props) => {
+  const { text, action, disable, SetScale, SetCVPage, Scale, CVPage, ...rest } =
+    props;
+
   return (
     <button
       className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded 
@@ -38,6 +49,7 @@ const ButtonControl: React.FC<{
             break;
         }
       }}
+      {...rest}
     >
       {text}
     </button>

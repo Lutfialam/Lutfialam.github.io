@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+
 import Head from 'next/head';
 import Modal from '../components/Modal';
 import Dropdown from '../components/Dropdown';
@@ -9,35 +10,29 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { SRLWrapper } from 'simple-react-lightbox';
 import ButtonControl from '../components/ButtonControl';
 
-// import ui from 'images/ui.png';
-// import smartopname from 'images/smartopname.png';
-// import enjoy_travel from 'images/enjoy_travel-min.png';
-// import harsa from 'images/harsa.png';
-// import indagi from 'images/indagi.png';
-// import search_text from 'images/search_text.png';
-// import pengaduan_masyarakat from 'images/pengaduan_masyarakat.png';
-
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
-  const [Scale, SetScale] = useState(0.6);
-  const [CVPage, SetCVPage] = useState(1);
-  const [CVPath, SetCVPath] = useState('CV-Lutfi_alamsyah-web.pdf');
-  const [MaxPage, SetMaxPage] = useState(1);
-  const [ActiveCV, SetActiveCV] = useState(1);
-  const [ModalCV, SetModalCV] = useState(false);
-  const [Loading, SetLoading] = useState(true);
-  const [SidebarOpen, SetSidebarOpen] = useState(false);
+  const [path, setPath] = useState('CV-Lutfi-alamsyah.pdf');
 
-  const onDocumentLoadSuccess = (document: { numPages: any }) => {
+  const [page, setPage] = useState(1);
+  const [scale, setScale] = useState(0.6);
+  const [maxPage, setMaxPage] = useState(1);
+  const [activeCV, setActiveCV] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [shouldModalCVShow, setShouldModalCVShow] = useState(false);
+  const [shouldSidebarShow, setShouldSidebarShow] = useState(false);
+
+  const onDocumentLoadSuccess = (document: { numPages: number }) => {
     const { numPages } = document;
-    SetMaxPage(numPages);
+    setMaxPage(numPages);
   };
 
-  const download = () => {
+  const onDownloadClick = () => {
     let link = document.createElement('a');
 
-    let documentCV = ActiveCV == 1 ? 'CV-Lutfi_alamsyah.pdf' : CVPath;
+    let documentCV = activeCV == 1 ? 'CV-Lutfi-alamsyah.pdf' : path;
     link.href = documentCV;
     link.setAttribute('download', documentCV);
 
@@ -46,27 +41,25 @@ const Home: NextPage = () => {
     document.body.removeChild(link);
   };
 
-  const CVChanger = (id: number) => {
-    SetCVPage(1);
-    SetActiveCV(id);
+  const onCVChange = (id: number) => {
+    setPage(1);
+    setActiveCV(id);
 
     if (window.innerWidth > 768) {
-      id == 1 ? SetScale(0.5) : SetScale(1.5);
+      setScale(id === 1 ? 0.5 : 1.5);
     } else {
-      id == 1 ? SetScale(0.15) : SetScale(0.6);
+      setScale(id === 1 ? 0.15 : 0.6);
     }
-    id == 1
-      ? SetCVPath('CV-Lutfi_alamsyah-web.pdf')
-      : SetCVPath('Resume-Lutfi-Alamsyah.pdf');
+    setPath(id === 1 ? 'CV-Lutfi-alamsyah.pdf' : 'Resume-Lutfi-Alamsyah.pdf');
   };
 
   useEffect(() => {
     if (window.innerWidth > 768) {
-      ActiveCV == 1 ? SetScale(0.5) : SetScale(1.5);
+      setScale(activeCV === 1 ? 0.5 : 1.5);
     } else {
-      ActiveCV == 1 ? SetScale(0.15) : SetScale(0.6);
+      setScale(activeCV === 1 ? 0.15 : 0.6);
     }
-    SetLoading(false);
+    setIsLoading(false);
   }, []);
 
   return (
@@ -78,7 +71,8 @@ const Home: NextPage = () => {
         <meta name='keywords' content='Lutfi Alamsyah portfolio' />
         <meta name='author' content='Lutfi Alamsyah' />
       </Head>
-      {Loading ? (
+
+      {isLoading ? (
         <div className='flex justify-center items-center h-screen'>
           <div className='spin'></div>
         </div>
@@ -135,118 +129,11 @@ const Home: NextPage = () => {
               }
             />
           </div>
-          {/* <Navbar /> */}
-          <Modal
-            modal_id='CV_modal'
-            open={ModalCV}
-            state={SetModalCV}
-            header={
-              <div className='dropdown flex justify-center'>
-                <a className='dropbtn no-underline text__navigation flex content-center'>
-                  <span className='mr-1 hidden md:flex'>
-                    {ActiveCV == 1 ? 'Primary CV' : 'Resume from linkedin'}
-                  </span>
-                  <svg
-                    className='fill-current h-4 w-4 flex self-center'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 20 20'
-                  >
-                    <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />{' '}
-                  </svg>
-                </a>
-
-                <div className='ml-36 mt-6 dropdown-content bg-white w-2/6 md:w-1/6 rounded-lg mr-12'>
-                  <div
-                    onClick={async () => {
-                      await CVChanger(1);
-                    }}
-                    className='hover:bg-indigo-500 hover:text-white pl-6 font-light text-xs'
-                  >
-                    <div className='flex flex-row content-center w-full h-full text-gray-500 hover:text-white py-3'>
-                      <i
-                        className='hover:text-white'
-                        data-feather='clipboard'
-                      ></i>
-                      <h1 className='flex self-center ml-4'>Primary CV</h1>
-                    </div>
-                  </div>
-                  <div
-                    onClick={async () => {
-                      await CVChanger(2);
-                    }}
-                    className='hover:bg-indigo-500 hover:text-white pl-6 font-light text-xs'
-                  >
-                    <div className='flex flex-row content-center w-full h-full text-gray-500 hover:text-white py-3'>
-                      <i
-                        className='hover:text-white'
-                        data-feather='linkedin'
-                      ></i>
-                      <h1 className='flex self-center ml-4'>
-                        Resume from linkedin
-                      </h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-            footer_left={
-              <>
-                <ButtonControl
-                  CVPage={CVPage}
-                  SetCVPage={SetCVPage}
-                  Scale={Scale}
-                  SetScale={SetScale}
-                  text='Prev'
-                  action='prev_page'
-                  disable={CVPage == 1 ? true : false}
-                />
-                <ButtonControl
-                  CVPage={CVPage}
-                  SetCVPage={SetCVPage}
-                  Scale={Scale}
-                  SetScale={SetScale}
-                  text='Next'
-                  action='next_page'
-                  disable={MaxPage == CVPage ? true : false}
-                />
-              </>
-            }
-            footer={
-              <>
-                <ButtonControl
-                  CVPage={CVPage}
-                  SetCVPage={SetCVPage}
-                  Scale={Scale}
-                  SetScale={SetScale}
-                  text='-'
-                  action='minus_scale'
-                />
-                <ButtonControl
-                  CVPage={CVPage}
-                  SetCVPage={SetCVPage}
-                  Scale={Scale}
-                  SetScale={SetScale}
-                  text='+'
-                  action='plus_scale'
-                />
-              </>
-            }
-          >
-            <Document
-              file={CVPath}
-              loading={<div className='spin'></div>}
-              onLoadSuccess={(doc) => {
-                onDocumentLoadSuccess(doc);
-              }}
-            >
-              <Page pageNumber={CVPage} scale={Scale} className='mt-0' />
-            </Document>
-          </Modal>
 
           <div
             className='z-40 fixed right-0 bottom-0 rounded-full md:hidden bg-indigo-500 m-4 p-4'
             onClick={() => {
-              SetSidebarOpen(true);
+              setShouldSidebarShow(true);
             }}
           >
             <i className='text-white' data-feather='menu'></i>
@@ -254,15 +141,15 @@ const Home: NextPage = () => {
           <aside className='md:hidden'>
             <div
               className={`transform transition-all ease-in-out duration-500 bg-black opacity-50 fixed h-full z-50 w-full ${
-                SidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                shouldSidebarShow ? 'translate-x-0' : '-translate-x-full'
               }`}
               onClick={() => {
-                SetSidebarOpen(false);
+                setShouldSidebarShow(false);
               }}
             ></div>
             <div
               className={`flex flex-col p-4 justify-end inset-y-0 rounded-xl w-3/4 fixed right-0 bg-indigo-500 z-50 m-2 transform transition-all ease-in-out duration-700 ${
-                SidebarOpen
+                shouldSidebarShow
                   ? 'translate-x-0 opacity-100'
                   : 'translate-x-full opacity-0'
               }`}
@@ -274,6 +161,7 @@ const Home: NextPage = () => {
 
               <div className='list-none space-y-3'>
                 <a
+                  rel='noreferrer'
                   href='https://github.com/lutfialam'
                   className='flex items-center font-semibold text-2xl text-gray-200 space-x-4 justify-between'
                   target='_blank'
@@ -282,6 +170,7 @@ const Home: NextPage = () => {
                   <i data-feather='github'></i>
                 </a>
                 <a
+                  rel='noreferrer'
                   href='https://telegram.me/lutfialamsyah'
                   className='flex items-center font-semibold text-2xl text-gray-200 space-x-4 justify-between'
                   target='_blank'
@@ -290,6 +179,7 @@ const Home: NextPage = () => {
                   <i data-feather='send'></i>
                 </a>
                 <a
+                  rel='noreferrer'
                   href='https://www.linkedin.com/in/lutfi-alamsyah/'
                   className='flex items-center font-semibold text-2xl text-gray-200 space-x-4 justify-between'
                   target='_blank'
@@ -298,6 +188,7 @@ const Home: NextPage = () => {
                   <i data-feather='linkedin'></i>
                 </a>
                 <a
+                  rel='noreferrer'
                   href='https://mail.google.com/mail/?view=cm&fs=1&to=lutfialamsyah1003@gmail.com'
                   className='flex items-center font-semibold text-2xl text-gray-200 space-x-4 justify-between'
                   target='_blank'
@@ -330,13 +221,13 @@ const Home: NextPage = () => {
                       have experienced in build and developing website and
                       android application. For more than two years I have
                       created several website projects, some of which are for
-                      other people's needs or for my experiments.
+                      other people&#39;s needs or for my experiments.
                     </p>
                     <div className='flex'>
                       <button
                         className='bg-indigo-500 text-xs md:text-base py-2 px-4 md:py-3 md:px-9 text-white my-5 focus:outline-none focus:ring rounded-full focus:bg-transparent focus:text-indigo-600 mr-2 md:mr-5'
                         onClick={() => {
-                          download();
+                          onDownloadClick();
                         }}
                       >
                         Download CV
@@ -344,7 +235,7 @@ const Home: NextPage = () => {
                       <button
                         className='bg-transparent text-xs md:text-base py-2 px-4 md:py-3 md:px-9 text-indigo-600 my-5 focus:outline-none rounded-full border-indigo-500 border-2 focus:ring'
                         onClick={() => {
-                          SetModalCV(true);
+                          setShouldModalCVShow(true);
                         }}
                       >
                         View CV
@@ -352,13 +243,9 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className='w-0 md:w-2/4'>
-                    {/* <div className="relative  md:flex w-11/12">
-                            <Image src="images/undraw_hello.svg" className="header_image object-cover" alt="hello image" layout="fill" />
-                          </div> */}
                     <img
                       src='images/undraw_hello.svg'
                       className='header_image hidden md:flex w-11/12'
-                      alt='asd'
                     />
                   </div>
                 </div>
@@ -498,13 +385,114 @@ const Home: NextPage = () => {
             <div className='flex w-full justify-center my-8'>
               <div className='h-1 bg-indigo-500 w-24 flex self-center'></div>
               <h1 className='text-gray-500 mx-4 text-center'>
-                Lutfi Alamsyah 2021
+                Lutfi Alamsyah {new Date().getFullYear()}
               </h1>
               <div className='h-1 bg-indigo-500 w-24 flex self-center'></div>
             </div>
           </div>
         </>
       )}
+
+      <Modal
+        modalId='CV_modal'
+        isVisible={shouldModalCVShow}
+        onModalClose={setShouldModalCVShow}
+        header={
+          <div className='dropdown flex justify-center'>
+            <a className='dropbtn no-underline text__navigation flex content-center'>
+              <span className='mr-1 hidden md:flex'>
+                {activeCV == 1 ? 'Primary CV' : 'Resume from linkedin'}
+              </span>
+              <svg
+                className='fill-current h-4 w-4 flex self-center'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 20 20'
+              >
+                <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />{' '}
+              </svg>
+            </a>
+
+            <div className='ml-36 mt-6 dropdown-content bg-white w-2/6 md:w-1/6 rounded-lg mr-12'>
+              <div
+                onClick={() => {
+                  onCVChange(1);
+                }}
+                className='hover:bg-indigo-500 hover:text-white pl-6 font-light text-xs'
+              >
+                <div className='flex flex-row content-center w-full h-full text-gray-500 hover:text-white py-3'>
+                  <i className='hover:text-white' data-feather='clipboard'></i>
+                  <h1 className='flex self-center ml-4'>Primary CV</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => {
+                  onCVChange(2);
+                }}
+                className='hover:bg-indigo-500 hover:text-white pl-6 font-light text-xs'
+              >
+                <div className='flex flex-row content-center w-full h-full text-gray-500 hover:text-white py-3'>
+                  <i className='hover:text-white' data-feather='linkedin'></i>
+                  <h1 className='flex self-center ml-4'>
+                    Resume from linkedin
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        footerLeft={
+          <>
+            <ButtonControl
+              CVPage={page}
+              SetCVPage={setPage}
+              Scale={scale}
+              SetScale={setScale}
+              text='Prev'
+              action='prev_page'
+              disable={page == 1 ? true : false}
+            />
+            <ButtonControl
+              CVPage={page}
+              SetCVPage={setPage}
+              Scale={scale}
+              SetScale={setScale}
+              text='Next'
+              action='next_page'
+              disable={maxPage == page ? true : false}
+            />
+          </>
+        }
+        footer={
+          <>
+            <ButtonControl
+              CVPage={page}
+              SetCVPage={setPage}
+              Scale={scale}
+              SetScale={setScale}
+              text='-'
+              action='minus_scale'
+            />
+            <ButtonControl
+              CVPage={page}
+              SetCVPage={setPage}
+              Scale={scale}
+              SetScale={setScale}
+              text='+'
+              action='plus_scale'
+            />
+          </>
+        }
+      >
+        <Document
+          file={path}
+          loading={<div className='spin'></div>}
+          onLoadSuccess={(doc) => {
+            onDocumentLoadSuccess(doc);
+          }}
+        >
+          <Page pageNumber={page} scale={scale} className='mt-0' />
+        </Document>
+      </Modal>
     </div>
   );
 };

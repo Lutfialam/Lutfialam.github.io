@@ -1,38 +1,42 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 interface ModalProps {
-  modal_id: string;
-  open: boolean;
+  modalId: string;
+  isVisible: boolean;
   header: string | React.ReactNode;
   footer: React.ReactNode;
-  footer_left?: React.ReactNode;
-  state: Dispatch<SetStateAction<boolean>>;
+  footerLeft?: React.ReactNode;
+  onModalClose: (isVisible: boolean) => void;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  children,
-  modal_id,
-  open,
-  header,
-  footer,
-  footer_left,
-  state,
-}) => {
+const Modal: React.FC<ModalProps> = (props) => {
+  const {
+    children,
+    modalId,
+    isVisible,
+    header,
+    footer,
+    footerLeft,
+    onModalClose,
+  } = props;
+
   const openModal = (key: string) => {
     let modal = document.getElementById(key) as HTMLDialogElement;
-    let modal_body = document.querySelector(`#${modal_id}_body`);
+    let modal_body = document.querySelector(`#${modalId}_body`);
 
-    modal.showModal();
-    document.body.classList.add('overflow-hidden');
+    if (!modal.open) {
+      modal?.showModal();
+      document.body.classList.add('overflow-hidden');
 
-    modal_body?.scrollTo({ top: 0 });
-    modal.children[0].classList.remove('opacity-0');
-    modal.children[0].classList.add('opacity-100');
-    document.body.classList.add('fixed');
+      modal_body?.scrollTo({ top: 0 });
+      modal?.children[0].classList.remove('opacity-0');
+      modal?.children[0].classList.add('opacity-100');
+      document.body.classList.add('fixed');
+    }
   };
 
-  const modalClose = (key: string) => {
-    state(false);
+  const closeModal = (key: string) => {
+    onModalClose(false);
     let modal = document.getElementById(key) as HTMLDialogElement;
     modal.children[0].classList.remove('opacity-100');
     modal.children[0].classList.add('opacity-0');
@@ -45,13 +49,15 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   useEffect(() => {
-    open ? openModal(modal_id) : null;
-  }, [open]);
+    if (isVisible) {
+      openModal(modalId);
+    }
+  }, [isVisible]);
 
   return (
     <dialog
-      id={modal_id}
-      className='bg-transparent z-0 md:relative md:w-screen md:h-screen overflow-hidden'
+      id={modalId}
+      className='flex-1 bg-transparent z-0 absolute md:w-screen md:h-screen overflow-hidden'
     >
       <div className='p-7 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0'>
         <div className='bg-white flex rounded-lg w-full h-full mx-auto'>
@@ -62,7 +68,7 @@ const Modal: React.FC<ModalProps> = ({
               </div>
               <svg
                 onClick={() => {
-                  modalClose(modal_id);
+                  closeModal(modalId);
                 }}
                 className='ml-auto fill-current text-gray-700 w-5 h-5 cursor-pointer'
                 xmlns='http://www.w3.org/2000/svg'
@@ -74,23 +80,23 @@ const Modal: React.FC<ModalProps> = ({
 
             <div
               className='overflow-x-hidden overflow-y-auto w-full h-full flex justify-center'
-              id={`${modal_id}_body`}
+              id={`${modalId}_body`}
             >
               {children}
             </div>
 
             <div
               className={`py-4 px-7 flex ${
-                footer_left ? 'justify-between' : 'justify-end'
+                footerLeft ? 'justify-between' : 'justify-end'
               } items-center w-full`}
             >
-              <div className='flex space-x-3'>{footer_left}</div>
+              <div className='flex space-x-3'>{footerLeft}</div>
               <div className='flex space-x-3'>
                 {footer}
                 <button
                   type='button'
                   onClick={() => {
-                    modalClose(modal_id);
+                    closeModal(modalId);
                   }}
                   className='bg-transparent hover:bg-gray-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded hidden md:flex'
                 >

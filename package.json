@@ -19,6 +19,7 @@
     "simple-react-lightbox": "^3.6.9-0"
   },
   "devDependencies": {
+    "@types/feather-icons": "^4.29.1",
     "@types/react": "17.0.19",
     "@types/react-pdf": "^5.0.5",
     "@types/simple-react-lightbox": "^3.6.1",

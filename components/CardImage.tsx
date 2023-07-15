@@ -1,6 +1,5 @@
-// import Image from 'next/image';
 import { useEffect } from 'react';
-const feather = require('feather-icons');
+import feather from 'feather-icons';
 
 interface CardImageProps {
   projectDescription: string;
@@ -10,12 +9,9 @@ interface CardImageProps {
   cardWidth?: string;
 }
 
-const CardImage: React.FC<CardImageProps> = ({
-  projectName,
-  projectDescription,
-  imagePath,
-  cardWidth,
-}) => {
+const CardImage: React.FC<CardImageProps> = (props) => {
+  const { projectName, projectDescription, imagePath, cardWidth } = props;
+
   useEffect(() => {
     feather.replace();
   }, []);
@@ -26,13 +22,6 @@ const CardImage: React.FC<CardImageProps> = ({
         cardWidth ?? 'w-2/5'
       } p-1 m-2`}
     >
-      {/* <div className='object-cover rounded-t-lg w-full overflow-hidden h-full md:h-56'>
-        <Image
-          src={imagePath}
-          alt={projectDescription}
-          className='object-left-top min-h-full'
-        />
-      </div> */}
       <img
         src={imagePath}
         alt={projectDescription}

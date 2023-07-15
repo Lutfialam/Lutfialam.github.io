@@ -6,18 +6,15 @@ interface DropdownProps {
   to: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({
-  top,
-  icon,
-  headerText,
-  paragraph,
-  to,
-}) => {
+const Dropdown: React.FC<DropdownProps> = (props) => {
+  const { top, icon, headerText, paragraph, to } = props;
+
   return (
     <div className='dropdown'>
       <a
         href={to}
         target='_blank'
+        rel='noreferrer'
         className='flex content-center  hover:rounded-lg hover:shadow-lg'
       >
         <i className='text-indigo-500' data-feather={icon}></i>
